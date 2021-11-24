@@ -1,0 +1,77 @@
+
+
+.box {
+    width:70%;
+    height:1700px;
+    background:#FFF;
+    margin:40px auto;
+    border: 10px solid white;
+
+}
+
+.effect1{
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+h3{
+    font-size: 40px;
+color:darkred;
+}
+body {
+    background-image:url(../images/background.png )
+}
+.multiselect {
+    width: 200px;
+}
+
+.selectBox {
+    position: relative;
+    width:300px;
+
+
+}
+
+.selectBox select {
+    font-size: 15px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+    font-size: 18px;
+
+}
+
+#checkboxes label {
+    display: block;
+    font-size: 18px;
+
+}
+
+#checkboxes label:hover {
+    background-color: #1e90ff;
+}
+
+#p{
+    font-size: 18px;
+
+}
+
+#input{
+    font-size: 18px;
+    color: #1e90ff;
+
+
+}

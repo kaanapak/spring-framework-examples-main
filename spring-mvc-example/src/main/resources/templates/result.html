@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!--
+      Set your own API-key. Testing key is not valid for other web-sites and services.
+      Get your API-key on the Developer Dashboard: https://developer.tech.yandex.ru/keys/
+  -->
+  <script th:inline="javascript">
+    var  Hosptial_name_string=[[${centers.HosptialNames}]]
+    Hospital_names= Hosptial_name_string.split('*');
+    var Hospital_coordinate_string=[[${centers.HospitalCoordinates}]]
+    Hospital_coordinates= Hospital_coordinate_string.split('*');
+    var Dialysis_name_string=[[${centers.DialysisNames}]]
+    Dialysis_names= Dialysis_name_string.split('*');
+    var Dialysis_coordinate_string=[[${centers.DialysisCoordinates}]]
+    Dialysis_coordinates= Dialysis_coordinate_string.split('*');
+    var All_coordinate_string=[[${centers.AllCoordinates}]]
+    console.log(All_coordinate_string)
+    All_coordinates= All_coordinate_string.split('*');
+    var patient_string=[[${centers.Patient_number_string}]]
+    All_patients= patient_string.split('*');
+
+    var selected_all_string=[[${centers.Selected_all_string}]]
+    console.log(selected_all_string)
+    Selected_all=selected_all_string.split('*');
+    var patient_coordinates_string="";
+
+
+  </script>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=en_RU&amp;apikey=<f6692a2f-e296-478f-b075-72d48bb03c32>" type="text/javascript"></script>
+
+  <script>
+    var first=0;
+    var patient_number=0;
+    for (let i = 0; i < All_coordinates.length; i++) {
+
+      if (Selected_all[i]==1 &&All_coordinates[i].length >0 ) {
+
+        var array_p;
+        if (All_coordinates[i].length === 0) {
+          array_p = new Array();
+        } else {
+          array_p = All_coordinates[i].replace(/, +/g, ",").split(",").map(Number);
+        }
+        console.log(All_patients[i])
+
+        for (let j = 0; j < All_patients[i]; j++) {
+
+
+          var r = 100 / 111300 // = 100 meters
+                  , y0 = array_p[0]
+                  , x0 = array_p[1]
+                  , u = Math.random()
+                  , v = Math.random()
+                  , w = r * Math.sqrt(u)
+                  , t = 2 * Math.PI * v
+                  , x = w * Math.cos(t)
+                  , y1 = w * Math.sin(t)
+                  , x1 = x / Math.cos(y0)
+
+          newY = y0 + y1
+          newX = x0 + x1
+          if(first==0){
+            first=1;
+            patient_coordinates_string=newX+","+newY
+          }else{
+            patient_coordinates_string+="*"+newX+","+newY
+          }
+          console.log(newX + "," + newY)
+          patient_number++;
+        }
+      }
+    }
+    console.log(patient_coordinates_string)
+    patient_coordinates=patient_coordinates_string.split('*');
+
+  </script>
+  <script src="/js/icon_customImage.js" type="text/javascript"></script>
+  <style>
+     #map {
+      width: 100%; height: 500px; padding: 0; margin: 0;
+    }
+  </style>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/index_c.css}" />
+<body>
+<div class="box effect1">
+
+  <h3>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi </h3>
+  <img src="../images/dialysis.jpg" alt="Flowers in Chania" width=100%;>
+  <img src="../images/senaryo.png" alt="Flowers in Chania" width=100%;>
+  <br>
+  <p> Aşağıdaki sonuçlardan faydalanarak bir adet senaryo seçin </p>
+  <form method="post" action="/parametre">
+    <input type='hidden' th:value="${status.getText()}" name='status'>
+    <input type='hidden' th:value="${centers.getText()}" name='centers'>
+
+    <select name="scenario">
+      <option id="1" value="En İyimser" >En İyimser</option>
+      <option id="2" value="İyimser" >İyimser</option>
+      <option id="3" value="Orta" >Orta</option>
+      <option id="4" value="Kötümser" >Kötümser</option>
+      <div id="cont2" > </div>
+    </select>
+    <input type="submit" value="Devam Et" >
+  </form>
+  <br>
+  <hr>
+  <br>
+
+  <p><b th:text="${centers.getMessageList().get(0)}" /> Bölgesinde</p>
+  <p>Afetten önce toplam hasta sayısı <b th:text="${centers.getMessageList().get(1)}" /></p>
+  <p>Diyaliz merkezi sayısı <b th:text="${centers.getMessageList().get(2)}" /></p>
+  <p>Hastane sayısı <b th:text="${centers.getMessageList().get(3)}" /></p>
+  <p>Karamsar senaryoda toplam günlük seans sayısı <b th:text="${centers.getMessageList().get(4)}" /></p>
+  <p>Orta senaryoda toplam günlük seans sayısı <b th:text="${centers.getMessageList().get(5)}" /></p>
+  <p>İyimser senaryoda toplam günlük seans sayısı <b th:text="${centers.getMessageList().get(6)}" /></p>
+  <p>En iyimser senaryoda toplam günlük seans sayısı <b th:text="${centers.getMessageList().get(7)}" /></p>
+  <div id="cont1" > </div>
+<br>
+
+
+
+  <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+  <script th:inline="javascript" >
+    var string=[[${centers.DataString}]];
+    var check=[[${centers.after_disaster}]];
+    var array;
+    if (string.length === 0) {
+      array = new Array();
+    } else {
+      array = string.replace(/, +/g, ",").split(",").map(Number);
+    }
+    var yValues = array;
+      var xValues;
+    var barColors;
+    if(check==1){
+      xValues = ["Karamsar", "Orta", "İyimser", "En İyimser","Kullanıcı"];
+      barColors= ["red", "orange","brown","grey","green"];
+    } else {
+     xValues = ["Karamsar", "Orta", "İyimser", "En İyimser"];
+      barColors= ["red", "orange","brown","grey"];
+    }
+
+
+
+
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "Farklı Senaryolardaki Seans Sayıları"
+        }
+      }
+    });
+  </script>
+
+  <script th:inline="javascript" >
+
+  </script>
+
+
+  <div id="map"></div>
+  <br>
+  <script th:inline="javascript">
+    var check=[[${centers.after_disaster}]];
+    var string=[[${centers.DataString}]];
+    var element8=[[${centers.getMessageList().get(8)}]]
+    if ((check = 1)) {
+      document.getElementById("cont2").innerHTML = "<option id=5 value=Kullanıcı >Kullanıcı</option>";
+      document.getElementById("cont1").innerHTML = "Kullanıcının verilerinde günlük seans sayısı <b>" +element8 +"</b>";
+
+    }
+
+  </script>
+
+</div>
+</body>
+</html>

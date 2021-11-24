@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div>
+
+  <head>
+
+    <script type="text/javascript" th:src="@{/js/index_j.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/index_c.css}" />
+
+    <style>
+      body {background-color: powderblue;}
+    </style>
+    <title>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      .box {
+
+        height:1500px;
+      }
+
+    </style>
+
+  </head>
+  <body>
+  <div class="box effect1">
+    <h3>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi </h3>
+    <img src="../images/dialysis.jpg" alt="Flowers in Chania" width=100%;>
+    <img src="../images/Giris.png" alt="Flowers in Chania" width=100%;>
+    <h2> Varsayılan afet öncesi ve sonrası değerlerini kullanın  </h2>
+    <p>Merkez ve hastanelerin makine sayıları baz alınarak hasta sayıları hesaplanmıştır. </p>
+    <p>Afet sonrasında merkezlerin bölgesi ve binalarının sağlamlığına göre 3 senaryoda günlük seans sayıları hesaplanmaktadır. </p>
+    <form method="post" action="/bolge_sec">
+      <input type='hidden' value='0' name='before_disaster'>
+      <input type='hidden' value='0' name='after_disaster'>
+      <input type='hidden' value='0' name='from_process'>
+      <input type="submit" value="Devam Et" >
+    </form>
+    <hr>
+    <h2> Kendiniz veri girin  </h2>
+    <p> Afet öncesi hastane ve merkezlerin hasta sayılarını,afet sonrası verebilecekleri seans sayısını girebilirsiniz </p>
+    <form method="post" action="/afet_oncesi">
+      <input type="submit" value="Devam Et" >
+    </form>
+    <hr>
+    <h2> Kayıtlı veriyi al  </h2>
+    <p> Sisteme girmiş olduğunuz verileri,tekrar girmek zorunda olmadan kullanabilirsiniz. </p>
+    <p> Diğer verilen sistemdeki varsayılan değerler olarak eklenecektir. </p>
+    <form method="post" action="/bolge_sec">
+
+      <input type="checkbox" id="b1" name="before_disaster" value="1">
+      <label for="b1"> Girmiş olduğum, afet öncesi hastane ve merkezlerdeki hasta sayılarını kullan </label><br>
+
+      <input type="checkbox" id="b2" name="after_disaster" value="1">
+      <label for="b1"> Girmiş olduğum, diyaliz merkezlerindeki seans sayılarını kullan </label><br>
+      <input type='hidden' value='0' name='from_process'>
+      <br>
+      <input type="submit" value="Devam Et" >
+    </form>
+
+
+
+
+
+
+  </div>
+
+
+  </body>
+</div>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div>
+
+<head>
+
+	<script type="text/javascript" th:src="@{/js/index_j.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/index_c.css}" />
+
+	<style>
+		body {background-color: powderblue;}
+	</style>
+	<title>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style>
+		.box {
+
+			height:800px;
+		}
+
+	</style>
+
+</head>
+<body>
+<div class="box effect1">
+	<h3>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi </h3>
+	<img src="../images/dialysis.jpg" alt="Flowers in Chania" width=100%;>
+	<img src="../images/bolge.png" alt="Flowers in Chania" width=100%;>
+  <br>
+<p>Lütfen görüntülemek istediğiniz bölgeyi  seçin. </p>
+
+
+	<form method="post" action="/centers" >
+		<input type='hidden' th:value="${status.getText()}" name='status'>
+			<br/>
+
+
+		<div class="multiselect">
+			<div class="selectBox" onclick="showCheckboxes()">
+				<select>
+					<option>İlçe Seçin </option>
+				</select>
+				<div class="overSelect"></div>
+			</div>
+			<div id="checkboxes">
+				<label for="1">
+					<input type="checkbox" id="1" value="Ataşehir" name="reagion" />Ataşehir</label>
+				<label for="2">
+					<input type="checkbox" id="2" value="Beykoz"  name="reagion" />Beykoz</label>
+				<label for="3">
+					<input type="checkbox" id="3" value="Çekmeköy" name="reagion"/>Çekmeköy</label>
+				<label for="4">
+					<input type="checkbox" id="4" value="Kadıköy" name="reagion"/>Kadıköy</label>
+				<label for="5">
+					<input type="checkbox" id="5" value="Kartal" name="reagion"/>Kartal</label>
+				<label for="6">
+					<input type="checkbox" id="6" value="Maltepe" name="reagion"/>Maltepe</label>
+				<label for="7">
+					<input type="checkbox" id="7" value="Pendik" name="reagion"/>Pendik</label>
+				<label for="8">
+					<input type="checkbox" id="8" value="Sultanbeyli" name="reagion"/>Sultanbeyli</label>
+				<label for="9">
+					<input type="checkbox" id="9" value="Şile" name="reagion"/>Şile</label>
+				<label for="10">
+					<input type="checkbox" id="10" value="Tuzla" name="reagion"/>Tuzla</label>
+				<label for="11">
+					<input type="checkbox" id="11" value="Ümraniye" name="reagion"/>Ümraniye</label>
+				<label for="12">
+					<input type="checkbox" id="12" value="Üsküdar" name="reagion"/>Üsküdar</label>
+
+
+			</div>
+		</div>
+
+		<br>
+		<input type="submit" value="Göster" >
+	</form>
+
+
+</div>
+
+
+</body>
+</div>
+</html>

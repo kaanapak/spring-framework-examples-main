@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div>
+
+  <head>
+
+    <script type="text/javascript" th:src="@{/js/index_j.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/index_c.css}" />
+
+    <style>
+      body {background-color: powderblue;}
+    </style>
+    <title>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      .box {
+
+        height:3800px;
+      }
+
+    </style>
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+
+      #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+      }
+
+      #myTable th, #myTable td {
+        text-align: left;
+        padding: 12px;
+      }
+
+      #myTable tr {
+        border-bottom: 1px solid #ddd;
+      }
+
+      #myTable tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      .table .tr-inputs th {
+        position: relative;
+        padding: 0;
+        padding-bottom: 1.2rem;
+        margin: 0;
+      }
+
+      .table .tr-inputs div {
+        position: absolute;
+        display: inline-block;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .table input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    </style>
+
+  </head>
+  <body>
+  <div class="box effect1">
+    <h3>Afet Sonrası Diyaliz Merkezi Yönetim Sistemi </h3>
+    <img src="../images/dialysis.jpg" alt="Flowers in Chania" width=100%;>
+    <img src="../images/afet-sonrası.png" alt="Flowers in Chania" width=100%;>
+    <br>
+    <h2> Varsayılan seans sayısı verilerini kullanın </h2>
+    <p>Afet sonrasında merkezlerin bölgesi ve binalarının sağlamlığına göre 3 senaryoda günlük seans sayıları hesaplanmıştır </p>
+    <p>Bu verileri kullanarak devam edebilirsiniz </p>
+
+    <form method="post" action="/bolge_sec" >
+      <input type='hidden' th:value="${status.getText_O()}" name='status'>
+      <input type='hidden' value='0' name='after_disaster'>
+      <input type='hidden' value='1' name='from_process'>
+      <input type="submit" value="Devam Et" >
+    </form>
+    <hr>
+
+    <h2>Veri Girişi</h2>
+    <p>Aşağıdan filtreleyerek veri girişi yapabilirsiniz.</p>
+    <p>Veri girişi yapmadığınız diyaliz merkezleri için orta senaryodaki senaryo sayıları  baz alınacaktır.</p>
+    <form method="post" action="/bolge_sec" >
+      <input type='hidden' th:value="${status.getText_O()}" name='status'>
+      <input type='hidden' value='1' name='after_disaster'>
+      <input type='hidden' value='1' name='from_process'>
+      <input type="submit" value="Kaydet ve Devam Et" >
+  <br>
+      <br>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="İlçe Arayın.." title="İlçe Girin">
+      <br>
+
+
+      <table id="myTable" class="table">
+        <tr class="header">
+          <th style="width:50%;">İsim</th>
+          <th style="width:30%;">İlçe</th>
+          <th style="width:20%;">Hasta Sayısı</th>
+        </tr>
+        <tr>
+          <td>DMED ÖZEL ATAŞEHİR DİYALİZ MERKEZİ</td>
+          <td>Ataşehir</td>
+          <td><input type="string" name="sonuc[]" value="15"></td>
+        </tr>
+        <tr>
+          <td>Koç Diyaliz Merkezi Ataşehir</td>
+          <td>Ataşehir</td>
+          <td> <div><input name="sonuc[]" value="35"></div></td>
+        </tr>
+        <tr>
+          <td>Özel FMC Ataşehir Diyaliz Merkezi</td>
+          <td>Ataşehir</td>
+          <td><div><input name="sonuc[]" value="25"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL DİALİFE BEYKOZ DİYALİZ MERKEZİ</td>
+          <td>Beykoz</td>
+          <td><div><input name="sonuc[]" value="15"></div></td>
+        </tr>
+        <tr>
+        <tr>
+          <td>ÖZEL DİALİFE ÇEKMEKÖY DİYALİZ MERKEZİ</td>
+          <td>Çekmeköy</td>
+          <td><div><input name="sonuc[]" value="72"></div></td>
+        </tr>
+        <tr>
+          <td>KOZYATAĞI DİYALİZ MERKEZİ (BOSTANCI)</td>
+          <td>Kadıköy</td>
+          <td><div><input name="sonuc[]" value="25"></div></td>
+        </tr>
+        <tr>
+          <td>Dialife Ata DİYALİZ MERKEZİ</td>
+          <td>Kadıköy</td>
+          <td><div><input name="sonuc[]" value="6"></div></td>
+        </tr>
+        <tr>
+          <td>İSTANBUL TÜRKMED DİYALİZ MERKEZİ</td>
+          <td>Kartal</td>
+          <td><div><input name="sonuc[]" value="10"></div></td>
+        </tr>
+        <tr>
+          <td>KÜÇÜKYALI DİYALİZ MERKEZİ (KÜÇÜKYALI)</td>
+          <td>Maltepe</td>
+          <td><div><input name="sonuc[]" value="25"></div></td>
+        </tr>
+        <tr>
+          <td>Koç Diyaliz Merkezi Maltepe</td>
+          <td>Maltepe</td>
+          <td><div><input name="sonuc[]" value="25"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL KÜÇÜKYALI DİYALİZ MERKEZİ</td>
+          <td>Maltepe</td>
+          <td><div><input name="sonuc[]" value="45"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL KADIKÖY DİYALİZ MERKEZİ</td>
+          <td>Maltepe</td>
+          <td><div><input name="sonuc[]" value="10"></div></td>
+        </tr>
+        <tr>
+          <td>Özel Maltepe Diyaliz Merkezi</td>
+          <td>Maltepe</td>
+          <td><div><input name="sonuc[]" value="25"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL RTS ONUR DİYALİZ MERKEZİ</td>
+          <td>Maltepe</td>
+          <td><div><input name="sonuc[]" value="30"></div></td>
+        </tr>
+        <tr>
+          <td>KURTKÖY DİYALİZ MERKEZİ</td>
+          <td>Pendik</td>
+          <td><div><input name="sonuc[]" value="30"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL BOĞAZİÇİ DİYALİZ MERKEZİ</td>
+          <td>Pendik</td>
+          <td><div><input name="sonuc[]" value="10"></div></td>
+        </tr>
+        <tr>
+          <td>Özel Uğur Diyaliz Merkezi</td>
+          <td>Pendik</td>
+          <td><div><input name="sonuc[]" value="32"></div></td>
+        </tr>
+        <tr>
+          <td>Özel Pendik Sevgi Diyaliz Merkezi</td>
+          <td>Pendik</td>
+          <td><div><input name="sonuc[]" value="12"></div></td>
+        </tr>
+        <tr>
+          <td>TÜRKMED SULTANBEYLİ DİYALİZ MERKEZİ</td>
+          <td>Sultanbeyli</td>
+          <td><div><input name="sonuc[]" value="0"></div></td>
+        </tr>
+        <tr>
+          <td>ÜMRANİYE DİYALİZ MERKEZİ</td>
+          <td>Ümraniye</td>
+          <td><div><input name="sonuc[]" value="60"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL ÇAKMAK ERDEM DİYALİZ MERKEZİ</td>
+          <td>Ümraniye</td>
+          <td><div><input name="sonuc[]" value="48"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL FMC İSTANBUL DİYALİZ MERKEZİ</td>
+          <td>Ümraniye</td>
+          <td><div><input name="sonuc[]" value="34"></div></td>
+        </tr>
+        <tr>
+          <td>ÇAMLICA ERDEM DİYALİZ MERKEZİ</td>
+          <td>Üsküdar</td>
+          <td><div><input name="sonuc[]" value="10"></div></td>
+        </tr>
+        <tr>
+          <td>Özel Dialife Transmed Diyaliz Merkezi</td>
+          <td>Üsküdar</td>
+          <td><div><input name="sonuc[]" value="27"></div></td>
+        </tr>
+        <tr>
+          <td>ÖZEL YAŞAM DİYALİZ MERKEZİ (ÜMRANİYE)</td>
+          <td>Üsküdar</td>
+          <td><div><input name="sonuc[]" value="19"></div></td>
+        </tr>
+
+      </table>
+    </form>
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1 ) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+
+
+
+
+
+  </div>
+
+
+  </body>
+</div>
+</html>
